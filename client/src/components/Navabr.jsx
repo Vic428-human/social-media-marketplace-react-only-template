@@ -10,7 +10,6 @@ import { useUser, useClerk, UserButton } from "@clerk/clerk-react";
 const Navabr = () => {
   const { isSignedIn, user, isLoaded } = useUser();
   const clerk = useClerk();
-  console.log("user==>", user);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
