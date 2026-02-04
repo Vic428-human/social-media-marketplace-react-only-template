@@ -51,22 +51,28 @@ const Navabr = () => {
           className={`sm:hidden fixed inset-0 ${menuOpen ? "w-full" : "w-0"} overflow-hidden bg-white backdrop-blur shadow-xl rounded-lg z-[200] text-sm transition-all`}
         >
           <div className="flex flex-col items-center justify-center h-full text-xl font-semibold gap-6 p-4">
-            <a href="#" onClick={() => scrollTo(0, 0)}>
-              {" "}
-              Home{" "}
-            </a>
-            <a href="#" onClick={() => scrollTo(0, 0)}>
-              {" "}
-              Products{" "}
-            </a>
-            <a href="#" onClick={() => scrollTo(0, 0)}>
-              {" "}
-              About{" "}
-            </a>
-            <a href="#" onClick={() => scrollTo(0, 0)}>
-              {" "}
-              Contact{" "}
-            </a>
+            <Link to="/" onClick={() => setMenuOpen(false) && scrollTo(0, 0)}>
+              Home
+            </Link>
+            <Link
+              to="/marketplace"
+              onClick={() => setMenuOpen(false) && scrollTo(0, 0)}
+            >
+              Marketplace
+            </Link>
+            <Link
+              to="/messages"
+              onClick={() => setMenuOpen(false) && scrollTo(0, 0)}
+            >
+              Messages
+            </Link>
+            <Link
+              to="/my-listings"
+              onClick={() => setMenuOpen(false) && scrollTo(0, 0)}
+            >
+              MyListings
+            </Link>
+
             <button className=" cursor-pointer px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full">
               Login
             </button>
