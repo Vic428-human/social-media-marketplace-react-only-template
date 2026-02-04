@@ -7,11 +7,14 @@ import ManageListing from "./pages/ManageListing";
 import Messages from "./pages/Messages";
 import MyOrders from "./pages/MyOrders";
 import Loading from "./pages/Loading";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Navabr from "./components/Navabr";
 
 const App = () => {
+  const {pathname} = useLocation(); 
   return (
     <div>
+      {!pathname.includes("/admin") && <Navabr/>}
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/marketplace" element={<Marketplace />} />
