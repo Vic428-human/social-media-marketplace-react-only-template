@@ -1,9 +1,9 @@
 // MarqueeCarousel.jsx
 import { useRef } from "react";
-import {assets} from "../assets/assets"
+import { assets } from "../assets/assets";
 
-const MarqueeCarousel = ({ bannerData, style, type, direction }) => {
-  const row1Ref = useRef(null);
+const MarqueeCarousel = ({ type, bannerData, style, direction }) => {
+  const bannerRef = useRef(null);
 
   const createDonateCard = (card) => (
     <div
@@ -69,7 +69,10 @@ const MarqueeCarousel = ({ bannerData, style, type, direction }) => {
   const renderCards = (data) => {
     const doubled = [...data, ...data];
     return doubled.map((card, index) => (
-      <div key={`card-${index}`}>{direction === "vertical" ? createGuildCard(card) : createDonateCard(card)}</div>
+      <div key={`card-${index}`}>
+        {type === "donate" && createDonateCard(card)}
+        {type === "guild" && createGuildCard(card)}
+      </div>
     ));
   };
 
@@ -81,7 +84,7 @@ const MarqueeCarousel = ({ bannerData, style, type, direction }) => {
         <div className="absolute left-0 top-0 w-full h-14 z-10 pointer-events-none bg-gradient-to-b from-white to-transparent dark:from-gray-900" />
 
         <div
-          ref={row1Ref}
+          ref={bannerRef}
           className={`marquee-inner-${direction} ${style} transform-gpu pt-10 pb-10`}
         >
           {renderCards(bannerData)}

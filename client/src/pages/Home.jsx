@@ -73,6 +73,7 @@ const Home = () => {
           {/* 左半邊 */}
           <div className="flex-1 flex flex-col items-center max-md:hidden">
             <MarqueeCarousel
+              type="guild"
               bannerData={leftBanners}
               style={`flex flex-col`}
               direction="vertical"
@@ -92,16 +93,28 @@ const Home = () => {
                   感謝金主爸爸的贊助，讓小弟得以營運此平台。
                 </p>
               </div>
-              <MarqueeCarousel
-                bannerData={cardsData}
-                style={`flex`}
-                direction="horizontal"
-              />
+              <div className="block max-md:hidden">
+                <MarqueeCarousel
+                  type="donate"
+                  bannerData={cardsData}
+                  style={`flex`}
+                  direction="horizontal"
+                />
+              </div>
+              <div className="hidden max-md:block">
+                <MarqueeCarousel
+                  type="donate"
+                  bannerData={cardsData}
+                  style={`flex flex-col`}
+                  direction="vertical"
+                />
+              </div>
             </div>
           </div>
           {/* 右半邊 */}
           <div className="flex-1 flex flex-col items-center max-md:hidden">
             <MarqueeCarousel
+              type="guild"
               bannerData={rightBanners}
               style={`flex flex-col`}
               direction="vertical"
