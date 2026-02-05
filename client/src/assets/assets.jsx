@@ -107,7 +107,7 @@ export const dummyUsers = [
 
 export const dummyListings = [
     {
-        id: 'hot_001',
+        id: 1,
         ownerId: 'user_1',
         title: '(服飾)太陽神頭盔',
         game: '仙境傳說-樂園',
@@ -124,7 +124,7 @@ export const dummyListings = [
         updatedAt: '2026-01-16',
     },
     {
-        id: 'hot_001',
+        id: 2,
         ownerId: 'user_1',
         title: '(服飾)狐狸耳朵',
         game: '仙境傳說-樂園',
@@ -141,7 +141,7 @@ export const dummyListings = [
         updatedAt: '2026-01-16',
     },
     {
-        id: 'hot_001',
+        id: 3,
         ownerId: 'user_1',
         title: '(服飾)露西法翅膀',
         game: '仙境傳說-樂園',

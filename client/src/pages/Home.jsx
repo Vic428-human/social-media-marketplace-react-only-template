@@ -32,8 +32,7 @@ const items = [
 
 const Home = () => {
   const [stocks] = useState(stocksData);
-  // Duplicate items to create seamless looping
-  const marqueeItems = [...items, ...items];
+
   return (
     <>
       <div className="">
