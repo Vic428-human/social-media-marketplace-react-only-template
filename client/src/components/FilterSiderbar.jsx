@@ -1,27 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Filter, X } from "lucide-react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const FilterSiderbar = ({ showFilter, setShowFilter, filters, setFilters }) => {
+
+  const navigator = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+
+  // input搜尋欄位打字的時候同步更新Search Params（搜尋參數），沒輸入的時候，預設導回市集頁面
+  const onChangeSearch = (e) => {
+    if (e.target.value) {
+      setSearchParams({ search: e.target.value });
+      setSearch(e.target.value);
+    } else {
+      navigator(`/marketplace`);
+      setSearch("");
+    }
+  };
+  
   return (
-    // h-fit类用于使元素的高度适应其内容，但不会超过其父容器的高度
     <div
       className={`${showFilter ? `max-sm:fixed` : `max-sm:hidden`} max-sm:inset-0 z-100 max-sm:h-screen max-sm:overflow-scroll bg-white rounded-lg shadow-sm border border-gray-200 h-fit sticky top-24 md:min-w-[300px]`}
     >
       <div className="p-4 border-b border-gray-200">
+        {/* 篩選器標頭 */}
         <div className="flex items-center justify-between">
-
           <div className="flex items-center space-x-2 text-gray-700">
             <Filter className="size-4" />
             <h3 className="font-semibold">篩選器</h3>
           </div>
 
-          <div onClick={()=>setShowFilter(false)}>
-            <X className="size-6 text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-100 rounded cursor-pointer transition-colors cursor-pointer"/>
-            <button className="sm:hidden text-sm border text-gray-700 px-3 py-1 rounded">
+          <div onClick={() => setShowFilter(false)} className="flex">
+            <X className="size-6 text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-100 rounded cursor-pointer transition-colors cursor-pointer" />
+            {/* <button className="sm:hidden text-sm border text-gray-700 px-3 py-1 rounded">
               執行
-            </button>
+            </button> */}
           </div>
-          
+        </div>
+      </div>
+
+      <div className="p-4 space-y-6 sm:max-h-[calc(100vh-200px)] overflow-y-scroll no-scrollbar">
+        {/* search bar */}
+        <div className="flex items-center space-x-2">
+          <input
+            type="text"
+            placeholder="透過關鍵字搜尋"
+            className="w-full text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-orange-400 focus:outline-2 focus:ring-2"
+            onChange={onChangeSearch}
+            value={search}
+          />
         </div>
       </div>
     </div>
