@@ -110,7 +110,7 @@ const Marketplace = () => {
             navigator("/");
             scrollTo(0, 0);
           }}
-          className="flex items-center gap-2 py-4"
+          className="flex items-center gap-2 py-4 z-150"
         >
           <ArrowLeftIcon className="size-4" />
           回上一頁

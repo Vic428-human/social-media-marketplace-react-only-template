@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import Hero from "../components/Hero";
 import LatestListing from "../components/LatestListing";
 import Plans from "../components/Plans";
 import InfiniteScrollAnimationPage from "../components/InfiniteScrollAnimationPage";
 import { bannerItems } from "../app/config/bannerConfig";
 import MarqueeCarousel from "../components/MarqueeCarousel.jsx";
+import { XIcon } from "lucide-react";
 
 const stocksData = [
   { id: 1, territory: "維爾茨堡", guild: "土匪" },
@@ -63,11 +64,74 @@ const leftBanners = bannerItems.filter((item) => item.side === "left");
 const rightBanners = bannerItems.filter((item) => item.side === "right");
 
 const Home = () => {
+  const [isCountingDown, setIsCountingDown] = useState(false);
+  const [remindTime, setRemindTime] = useState(3);
+  const [showBanner, setShowBanner] = useState(() => {
+    try {
+      const data = window.localStorage.getItem("MY_WELCOME_SHOW_BANNER");
+      return data !== null ? JSON.parse(data) : true;
+    } catch {
+      return true; // 解析失敗時預設 true
+    }
+  });
   const [stocks] = useState(stocksData);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      "MY_WELCOME_SHOW_BANNER",
+      JSON.stringify(showBanner),
+    );
+  }, [showBanner]);
 
   return (
     <>
       <div className="">
+        {/* <button
+          onClick={() => {
+            setShowBanner(true);
+            setRemindTime(3);
+          }}
+        >
+          測試打開廣告
+        </button> */}
+        {showBanner && (
+          <div className="fixed inset-0 z-100 w-full h-full bg-yellow-200/30 flex items-center justify-center">
+            <div className="relative">
+              <button
+                onClick={() => {
+                  if (isCountingDown) return; // 防止重複點擊
+                  setIsCountingDown(true); // 開始進入倒數模式
+                  const timer = setInterval(() => {
+                    setRemindTime((v) => {
+                      if (v > 0) {
+                        return v - 1;
+                      }
+                      clearInterval(timer);
+                      setShowBanner(false);
+                      setIsCountingDown(false); // 新增：倒數結束後重置狀態
+
+                      return 0;
+                    });
+                  }, 1000);
+                }}
+                className="absolute top-1 right-2 z-110 text-red-500"
+              >
+                <XIcon className="w-5 h-5" />
+              </button>
+              {isCountingDown ? (
+                <p className="mb-1">{remindTime}s 後關閉</p>
+              ) : (
+                <p className="mb-1">按 X 即可關閉</p>
+              )}
+              <img
+                src="https://p2.bahamut.com.tw/B/2KU/17/9d5087cd7079a2b12b2e8d6bef1us6h5.JPG"
+                alt=""
+                className="w-100 h-auto"
+              />
+            </div>
+          </div>
+        )}
+
         <InfiniteScrollAnimationPage stocks={stocks} />
         <div className="flex">
           {/* 左半邊 */}
