@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { Filter, X } from "lucide-react";
+import { ChevronDown, Filter, X } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const FilterSiderbar = ({ showFilter, setShowFilter, filters, setFilters }) => {
-
   const navigator = useNavigate();
+  const [expandSections, setExpandSections] = useState({
+    platform: true,
+    maxPrice: true,
+    minPrice: true,
+    verified: false,
+    featured: false,
+  });
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") || "");
 
@@ -18,7 +24,18 @@ const FilterSiderbar = ({ showFilter, setShowFilter, filters, setFilters }) => {
       setSearch("");
     }
   };
-  
+
+  const toggleSection = (section) => {
+    setExpandSections((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  const platforms = [
+    { value: "Discord", label: "Discord" },
+    { value: "Goodle", label: "Goodle" },
+    { value: "Line", label: "Line" },
+    { value: "MetaMask", label: "MetaMask" },
+  ];
+
   return (
     <div
       className={`${showFilter ? `max-sm:fixed` : `max-sm:hidden`} max-sm:inset-0 z-100 max-sm:h-screen max-sm:overflow-scroll bg-white rounded-lg shadow-sm border border-gray-200 h-fit sticky top-24 md:min-w-[300px]`}
@@ -51,6 +68,17 @@ const FilterSiderbar = ({ showFilter, setShowFilter, filters, setFilters }) => {
             value={search}
           />
         </div>
+
+        {/* platform filter */}
+        <button
+          onClick={() => toggleSection("platform")}
+          className="flex items-center justify-between w-full mb-3"
+        >
+          <label>平台</label>
+          <ChevronDown
+            className={`size-4 transition-transform ${expandSections.platform ? "rotate-180" : ""}`}
+          />
+        </button>
       </div>
     </div>
   );
