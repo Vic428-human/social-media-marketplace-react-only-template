@@ -1,4 +1,4 @@
-### (備份)
+### 備份
 - [React交易所版型](https://github.com/Vic428-human/social-media-marketplace) 
 已經有預留Clerk，之後練習後端的時候都可以以這個版本的前端當作練習對象，拔掉Clerk也方便。
 
