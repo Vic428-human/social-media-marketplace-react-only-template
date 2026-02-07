@@ -7,3 +7,7 @@ git remote -v
 react-only-origin       git@github.com:Vic428-human/social-media-marketplace-react-only-template.git (fetch)
 react-only-origin       git@github.com:Vic428-human/social-media-marketplace-react-only-template.git (push)
 ```
+
+```
+git push react-only-origin main
+```
